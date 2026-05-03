@@ -2,16 +2,37 @@
 
 A full-stack project management application with role-based access control, built with React and Node.js.
 
+## 🚀 Quick Deploy to Railway
+
+### Backend Deployment
+1. Create new Railway project
+2. Add MongoDB database (Railway plugin or Atlas)
+3. Set environment variables:
+   - `MONGO_URI` - MongoDB connection string
+   - `JWT_SECRET` - Random secure string
+   - `FRONTEND_URL` - Your frontend URL
+   - `NODE_ENV=production`
+4. Deploy from `project-management-backend` folder
+5. Copy generated backend URL
+
+### Frontend Deployment
+1. Create new Railway project
+2. Set environment variable:
+   - `VITE_API_URL` - Your backend URL + `/api`
+3. Deploy from `project-management-frontend` folder
+4. Update backend `FRONTEND_URL` with frontend URL
+
+📖 **Detailed Guide**: See [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md)
+
 ## Features
 
 - **Authentication & Authorization**
-  - User signup and login
   - JWT-based authentication
   - Role-based access (Admin & Member)
   - Protected routes
 
 - **Project Management**
-  - Create, read, update, and delete projects
+  - Create, read, update, delete projects
   - Assign projects to team members
   - Track project status
 
@@ -29,17 +50,84 @@ A full-stack project management application with role-based access control, buil
 ### Frontend
 - React 19.2.5
 - React Router DOM 7.14.2
-- Axios for API calls
+- Axios
 - Tailwind CSS 4.2.4
 - Vite 8.0.10
-- Lucide React (icons)
+- Lucide React
 
 ### Backend
 - Node.js with Express 5.2.1
 - MongoDB with Mongoose 9.6.1
-- JWT for authentication
-- Bcrypt for password hashing
+- JWT authentication
+- Bcrypt password hashing
 - CORS enabled
+
+## Local Development
+
+### Prerequisites
+- Node.js (v14+)
+- MongoDB (local or Atlas)
+- npm or yarn
+
+### Backend Setup
+
+```bash
+cd project-management-backend
+npm install
+```
+
+Create `.env` file:
+```env
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/project_manager
+JWT_SECRET=your_secret_key_here
+FRONTEND_URL=http://localhost:5173
+```
+
+Start server:
+```bash
+npm start
+```
+
+### Frontend Setup
+
+```bash
+cd project-management-frontend
+npm install
+```
+
+Create `.env` file:
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Start dev server:
+```bash
+npm run dev
+```
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/signup` - Register user
+- `POST /api/auth/login` - Login user
+
+### Projects
+- `GET /api/projects` - Get all projects
+- `POST /api/projects` - Create project
+- `PUT /api/projects/:id` - Update project
+- `DELETE /api/projects/:id` - Delete project
+
+### Tasks
+- `GET /api/tasks` - Get all tasks
+- `POST /api/tasks` - Create task
+- `PUT /api/tasks/:id` - Update task
+- `DELETE /api/tasks/:id` - Delete task
+
+## User Roles
+
+- **ADMIN**: Full access to all features
+- **MEMBER**: Access to assigned projects and tasks
 
 ## Project Structure
 
@@ -47,147 +135,44 @@ A full-stack project management application with role-based access control, buil
 ethara AI task/
 ├── project-management-backend/
 │   ├── middleware/
-│   │   └── authMiddleware.js
 │   ├── models/
-│   │   ├── Project.js
-│   │   ├── Task.js
-│   │   └── User.js
 │   ├── routes/
-│   │   ├── auth.js
-│   │   ├── project.js
-│   │   └── task.js
-│   ├── .env
+│   ├── server.js
 │   ├── package.json
-│   └── server.js
+│   ├── railway.json
+│   └── .env.example
 └── project-management-frontend/
-    ├── public/
     ├── src/
-    │   ├── api/
-    │   ├── assets/
-    │   ├── components/
-    │   ├── pages/
-    │   ├── App.jsx
-    │   └── main.jsx
+    ├── public/
     ├── package.json
-    └── vite.config.js
-```
-
-## Prerequisites
-
-- Node.js (v14 or higher)
-- MongoDB (local or cloud instance)
-- npm or yarn
-
-## Installation
-
-### 1. Clone the repository
-
-```bash
-git clone <repository-url>
-cd "ethara AI task"
-```
-
-### 2. Backend Setup
-
-```bash
-cd project-management-backend
-npm install
-```
-
-Create a `.env` file in the backend directory:
-
-```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/project_manager
-JWT_SECRET=your_secret_key_here
-```
-
-Start the backend server:
-
-```bash
-node server.js
-```
-
-The backend will run on `http://localhost:5000`
-
-### 3. Frontend Setup
-
-```bash
-cd project-management-frontend
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The frontend will run on `http://localhost:5173`
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/signup` - Register new user
-- `POST /api/auth/login` - Login user
-
-### Projects
-- `GET /api/projects` - Get all projects
-- `POST /api/projects` - Create new project
-- `PUT /api/projects/:id` - Update project
-- `DELETE /api/projects/:id` - Delete project
-
-### Tasks
-- `GET /api/tasks` - Get all tasks
-- `POST /api/tasks` - Create new task
-- `PUT /api/tasks/:id` - Update task
-- `DELETE /api/tasks/:id` - Delete task
-
-## User Roles
-
-- **ADMIN**: Full access to create, edit, and delete projects and tasks
-- **MEMBER**: Access to assigned projects and tasks
-
-## Default Credentials
-
-After signup, users are registered as MEMBER by default. To create an admin user, modify the role in the database or update the signup logic.
-
-## Development
-
-### Frontend Scripts
-
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run preview  # Preview production build
-npm run lint     # Run ESLint
-```
-
-### Backend Scripts
-
-```bash
-node server.js   # Start server
+    ├── railway.json
+    ├── nixpacks.toml
+    └── .env.example
 ```
 
 ## Environment Variables
 
-### Backend (.env)
+### Backend
 - `PORT` - Server port (default: 5000)
 - `MONGO_URI` - MongoDB connection string
-- `JWT_SECRET` - Secret key for JWT tokens
+- `JWT_SECRET` - JWT secret key
+- `FRONTEND_URL` - Frontend URL for CORS
+- `NODE_ENV` - Environment (production/development)
 
-## Contributing
+### Frontend
+- `VITE_API_URL` - Backend API URL
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Deployment Options
+
+- **Railway** (Recommended) - See [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md)
+- **Vercel** (Frontend) + Railway (Backend)
+- **Netlify** (Frontend) + Railway (Backend)
+- **Heroku** (Both)
 
 ## License
 
 ISC
 
-## Contact
+## Support
 
-For questions or support, please open an issue in the repository.
+For issues or questions, please open an issue in the repository.
