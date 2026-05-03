@@ -44,9 +44,13 @@ app.listen(PORT, () => {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
+})
 .then(() => {
     console.log('Connected to MongoDB');
+    console.log('MongoDB URI:', process.env.MONGO_URI ? 'Set' : 'Not Set');
 })
 .catch((error) => {
     console.error('MongoDB connection error:', error);

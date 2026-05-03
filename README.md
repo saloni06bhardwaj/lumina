@@ -2,7 +2,7 @@
 
 A full-stack project management application with role-based access control, built with React and Node.js.
 
-## 🚀 Quick Deploy to Railway
+##  Quick Deploy to Railway
 
 ### Backend Deployment
 1. Create new Railway project
@@ -162,17 +162,5 @@ ethara AI task/
 ### Frontend
 - `VITE_API_URL` - Backend API URL
 
-## Deployment Options
 
-- **Railway** (Recommended) - See [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md)
-- **Vercel** (Frontend) + Railway (Backend)
-- **Netlify** (Frontend) + Railway (Backend)
-- **Heroku** (Both)
 
-## License
-
-ISC
-
-## Support
-
-For issues or questions, please open an issue in the repository.

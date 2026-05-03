@@ -99,23 +99,7 @@ const Signup = () => {
                             </button>
                         </form>
 
-                        <div className="relative my-9">
-                            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#EAECEF]"></div></div>
-                            <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-3 text-[#B4BBC5] font-medium tracking-wide">Or signup with</span></div>
-                        </div>
-
-                        <div className="flex gap-4 mb-10">
-                            <button className="w-1/2 flex items-center justify-center gap-3 border border-[#E0E5EA] rounded-xl py-4 hover:bg-gray-50 transition">
-                                <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" className="w-6 h-6" />
-                                <span className="text-base font-semibold">Google</span>
-                            </button>
-                            <button className="w-1/2 flex items-center justify-center gap-3 border border-[#E0E5EA] rounded-xl py-4 hover:bg-gray-50 transition">
-                                <img src="https://img.icons8.com/ios-filled/50/apple-logo.png" alt="Apple" className="w-6 h-6" />
-                                <span className="text-base font-semibold">Apple</span>
-                            </button>
-                        </div>
-
-                        <p className="text-center text-lg text-gray-500">
+                        <p className="text-center text-lg text-gray-500 mt-8">
                             Already have an account? <Link to="/login" className="font-semibold text-blue-600 hover:underline">Sign In</Link>
                         </p>
                     </div>
