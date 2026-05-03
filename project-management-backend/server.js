@@ -1,37 +1,55 @@
-// impoprting required modules
+// Importing required modules
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-// env loading
+
+// Load environment variables
 dotenv.config();
-// middlewares
+
+// Initialize app
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
+// ✅ Health check route (IMPORTANT for deployment)
 app.get('/', (req, res) => {
     res.send('API is running 🚀');
 });
 
-const authroutes = require('./routes/auth');
+// Routes
+const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/project');
+const taskRoutes = require('./routes/task');
 
-
-app.use('/api/auth', authroutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
-app.use('/api/tasks', require('./routes/task'));
+app.use('/api/tasks', taskRoutes);
 
+// ✅ PORT (Railway uses this)
+const PORT = process.env.PORT || 5000;
 
-// connecting mongodb
-mongoose.connect(process.env.MONGO_URI,).then(()=>{
+// ✅ Start server FIRST (important for Railway)
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+// ✅ Connect to MongoDB (after server starts)
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
     console.log('Connected to MongoDB');
-    // starting the server only when db is connected 
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, ()=>{
-        console.log(`Server is running on port ${PORT}`);
-    });
 })
-.catch((error)=>{
-    console.error('Error connecting to MongoDB:', error);
+.catch((error) => {
+    console.error('MongoDB connection error:', error);
+});
+
+// ✅ Global error handlers (prevents crashes)
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
 });
